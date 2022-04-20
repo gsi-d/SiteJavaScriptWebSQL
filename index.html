@@ -60,7 +60,7 @@
             </div>
 
             <input type="text" class="form-control" id="buscar" placeholder="Pesquisar por nome"></br>
-            <button class="btn btn-success" onclick="return search();" type="submit">Pesquisar</button>
+            <button class="btn btn-primary" onclick="return search();" type="submit">Pesquisar</button>
         </div>
     </div>
     
@@ -91,7 +91,7 @@
     
     <div class="row">
         <div class="col-md-12">
-        <form class="form-control" action="" method="post" onsubmit="return enviarFormulario();">
+        <form class="form-control" action="" method="post">
 
         <div class="mb-3">
         <label class="form-label">Cod.:</label>
@@ -113,7 +113,8 @@
         <input class="form-control" type="text" name="cidade" id="cidade"/>
         </div>
 
-        <button class="btn btn-success" type="submit">Salvar</button>
+        <button class="btn btn-success" onclick="return enviarFormulario();" type="submit">Salvar</button>
+        <button class="btn btn-outline-success" onclick="return enviarEdicao();" type="submit">Alterar</button>
         <br>
         <div class="row">
             <div class="col-md-12">
@@ -133,7 +134,7 @@
         </div>
     </div>
     <div class="mb-3">
-        <input class="form-control" placeholder="Excluir cliente" type="text" name="cidade" id="codDelete"/>
+        <input class="form-control" placeholder="Informe o código do cliente" type="text" name="cidade" id="codDelete"/>
         <br>
         <button class="btn btn-danger" onclick="return deletar();" type="submit">Excluir</button>
     </div>
