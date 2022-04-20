@@ -43,9 +43,6 @@ function exibirDados() {
     conteudo += celular+' / ';
     conteudo += cidade;
 
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML = conteudo;
-
 }
 
 function gerarCodigo(cod) {

@@ -61,27 +61,6 @@ function enviarFormulario()
     return false;
 }
 
-/*function Select()
-{
-    return new Promise((fnSucesso, fnErro)=>{
-
-        
-        db.transaction((tr)=>{
-            let sql = 'SELECT * FROM cliente';
-    
-            tr.executeSql(sql, null, (tr, result)=>{
-                console.log(result);
-                fnSucesso(result);
-            }, (tr, error)=>{
-                console.log(error);
-                fnErro(error);
-            });
-    
-        });
-
-
-    });
-}*/
 
 function Delete(cod, nome, celular, cidade)
 {
@@ -149,32 +128,11 @@ async function editar(){
     resultado.innerHTML = 'Cliente alterado com sucesso!';
 }
 
-/*async function Listar()
-{
-    let resultados = await Select();
-    console.log(resultados);
-
-    let resultadosSelect = document.getElementById('resultadoSelect');
-    resultadosSelect.innerHTML = '';
-
-
-    let linha = null;
-    for(let i = 0; i<resultados.rows.length; i++)
-    {
-        linha = resultados.rows[i];
-
-        resultadosSelect.innerHTML += '<li class="list-group-item">'+linha.cod+' / '+linha.nome+' / '+linha.celular+' / '+linha.cidade+'</li>';
-
-        // console.log(linha.cod+' '+linha.nome+' '+linha.celular+' '+linha.cidade);
-    }
-}*/
-
-
 function Search(nome)
 {
     return new Promise((fnSucesso, fnErro)=>{        
         db.transaction((tr)=>{
-            let sql = 'SELECT * FROM cliente WHERE nome = ?';
+            let sql = 'SELECT * FROM cliente WHERE nome LIKE ?';
     
             tr.executeSql(sql, [nome], (tr, result)=>{
                 console.log(result);
@@ -196,14 +154,15 @@ async function search(){
     let cidade = document.getElementById('cidade');
 
     let nome = document.getElementById('buscar');
-    let resultados = await Search(nome.value);
+    let resultados = await Search('%' + nome.value + '%');
     console.log(resultados);
 
     let resultadosSelect = document.getElementById('resultadoSelect');
     resultadosSelect.innerHTML = '';
-    cod.innerHTML = '';
-    nomeCliente.innerHTML = '';
-
+    
+    let resultado = document.getElementById('resultado');
+    let resultPesquisa = document.getElementById('resultPesquisa');
+    let clienteNull = document.getElementById('casoClienteNull');
 
     let linha = null;
     for(let i = 0; i<resultados.rows.length; i++)
@@ -213,9 +172,18 @@ async function search(){
         resultadosSelect.innerHTML += '<li class="list-group-item">'+linha.cod+' - '+linha.nome+' - '+linha.celular+' - '+linha.cidade+'</li>';
     }
 
+    if(resultadosSelect.innerHTML == ''){
+        resultado.innerHTML = 'Nenhum cliente encontrado!';
+        clienteNull.innerHTML = 'Nenhum cliente encontrado.'
+        resultPesquisa.innerHTML = 'Resultados da pesquisa:'
+    }
+    else{
+        resultado.innerHTML = 'Consulta realizada com sucesso!';
+        resultPesquisa.innerHTML = 'Resultados da pesquisa:'
+        clienteNull.innerHTML = ''
+    }
 
-    let resultado = document.getElementById('resultado');
-    resultado.innerHTML = 'Cliente retornado com sucesso!';
+    
 
 }
 
